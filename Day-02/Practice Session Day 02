@@ -1,0 +1,444 @@
+# Day 02 – Git & GitHub Practice Session
+
+## 1. Linux / Git Bash Commands Practiced
+
+* `cd` — Change the current directory.
+* `cd ..` — Move one directory back.
+* `ls` — List files and folders.
+* `ls -a` — Show all files, including hidden files.
+* `mkdir` — Create a new directory/folder.
+* `touch` — Create a new empty file.
+* `rm -f` — Remove a file.
+* `rm -r` — Remove a directory recursively.
+* `rm -rf` — Forcefully remove a directory and its contents.
+* `cat` — Display the contents of a file.
+* `cat > file.txt` — Create/overwrite a file with terminal input.
+* `cat >> file.txt` — Append content to an existing file.
+* `vi` — Open/edit a file from the terminal.
+* `pwd` — Display the current working directory.
+* `history` — Display previously executed Bash commands.
+* `history > daytwo` — Save terminal command history into a file named `daytwo`.
+* `cp` — Copy files or directories.
+* `mv` — Move or rename files/directories.
+
+---
+
+## 2. Git Repository Basics
+
+### `git init`
+
+* Initializes a new Git repository in the current directory.
+* Creates the hidden `.git` directory.
+* Converts a normal folder into a Git-managed repository.
+
+### `git clone`
+
+* Downloads an existing remote GitHub repository to the local computer.
+* Creates a local copy of the repository.
+* Normally, cloning is required when getting a repository for the first time.
+
+Example:
+
+```bash
+git clone https://github.com/Rambabu-kushwaha/Daily-Java-Practice
+```
+
+### `git status`
+
+* Shows the current state of the Git repository.
+* Shows:
+
+  * Current branch
+  * Modified files
+  * Deleted files
+  * Untracked files
+  * Staged files
+  * Changes ready for commit
+
+---
+
+## 3. Git Staging Area
+
+### `git add`
+
+* Moves changes from the working directory into the **staging area**.
+* Tells Git which changes should be included in the next commit.
+
+Example:
+
+```bash
+git add Day-02
+```
+
+### `git add .`
+
+* Stages all eligible changes in the current repository.
+* Should be used carefully because it can stage files you did not intend to commit.
+
+### `git restore --staged`
+
+* Removes a file from the staging area.
+* The file is not deleted.
+* It simply becomes unstaged.
+
+Example:
+
+```bash
+git restore --staged "Day-01/day-01-git-commands.txt"
+```
+
+### `git rm --cached`
+
+* Removes a file from Git's tracking/staging while keeping the actual file on the computer.
+
+---
+
+## 4. Git Commit
+
+### `git commit`
+
+* Creates a permanent Git snapshot from the staged changes.
+* A commit records what was changed and provides a unique commit hash.
+
+Example:
+
+```bash
+git commit -m "Add Day 02 Git and GitHub PDF"
+```
+
+### Commit Hash
+
+Every commit gets a unique identifier, for example:
+
+```text
+6f4937e
+```
+
+A full commit hash is much longer.
+
+The hash allows Git to uniquely identify a particular commit.
+
+---
+
+## 5. Git History
+
+### `git log`
+
+* Displays detailed commit history.
+* Shows commit hash, author, date, and commit message.
+
+### `git log --oneline`
+
+* Displays a shorter version of the commit history.
+* Shows the short commit hash and commit message.
+
+Example:
+
+```text
+6f4937e Add Day 02 Git and GitHub PDF
+8e7fa78 Update Git and GitHub Basics
+```
+
+---
+
+## 6. Git Reset
+
+### `git reset <commit-hash>`
+
+* Moves the current branch pointer back to a particular commit.
+* Useful for moving the branch to an earlier point in Git history.
+
+Example:
+
+```bash
+git reset 4b820400255822174df1a349b4cab3a7ffb473c2
+```
+
+Important concept:
+
+```text
+A → B → C
+        ↑
+      current
+
+git reset B
+
+A → B
+    ↑
+  current
+```
+
+The branch pointer moves back to the selected commit.
+
+---
+
+## 7. Remote Repository
+
+### `git remote -v`
+
+* Shows the remote repositories connected to the local Git repository.
+* Usually shows `origin` for the GitHub repository.
+
+Example:
+
+```text
+origin  https://github.com/Rambabu-kushwaha/Daily-Java-Practice
+```
+
+---
+
+## 8. Git Push
+
+### `git push`
+
+* Uploads local commits to the remote GitHub repository.
+
+Basic workflow:
+
+```text
+Working Directory
+       ↓
+   git add
+       ↓
+Staging Area
+       ↓
+ git commit
+       ↓
+Local Repository
+       ↓
+  git push
+       ↓
+GitHub
+```
+
+### `git push origin main`
+
+* Pushes the local `main` branch to the `origin` remote.
+
+---
+
+## 9. Git Pull
+
+### `git pull`
+
+* Downloads changes from the remote repository and integrates them into the local repository.
+
+### `git pull --rebase origin main`
+
+* Gets the latest changes from GitHub and reapplies local commits on top of them.
+* Helps keep the commit history cleaner.
+
+Today, `git push` initially failed because the remote `main` branch contained changes that were not present locally.
+
+The solution was:
+
+```bash
+git pull --rebase origin main
+git push
+```
+
+---
+
+## 10. GitHub PDF Practice
+
+Today I practiced adding a PDF to a GitHub repository.
+
+PDF:
+
+```text
+Day_02(Git + Github).pdf
+```
+
+Created the folder:
+
+```bash
+mkdir Day-02
+```
+
+Moved the PDF:
+
+```bash
+mv "Day_02(Git + Github).pdf" Day-02/
+```
+
+Added the folder:
+
+```bash
+git add Day-02
+```
+
+Committed the PDF:
+
+```bash
+git commit -m "Add Day 02 Git and GitHub PDF"
+```
+
+The commit was created successfully:
+
+```text
+6f4937e Add Day 02 Git and GitHub PDF
+```
+
+Then pushed the changes to GitHub after synchronizing the local repository with the remote repository.
+
+---
+
+## 11. Important Bash Filename Lesson
+
+I learned that Bash treats some characters as special characters.
+
+For example, this filename:
+
+```text
+Day_02(Git + Github).pdf
+```
+
+contains:
+
+* spaces
+* `(`
+* `)`
+* `+`
+
+Therefore, the filename should be surrounded by quotes when used in commands.
+
+Correct:
+
+```bash
+git add "Day_02(Git + Github).pdf"
+```
+
+Incorrect:
+
+```bash
+git add Day_02(Git + Github).pdf
+```
+
+Without quotes, Bash can interpret the special characters and produce:
+
+```text
+syntax error near unexpected token '('
+```
+
+---
+
+## 12. Important Git Concepts Learned
+
+### Working Directory
+
+The place where I create and modify files.
+
+### Staging Area
+
+The place where I select changes that should go into the next commit.
+
+### Local Repository
+
+The `.git` database on my computer containing Git commits and history.
+
+### Remote Repository
+
+The repository hosted on GitHub.
+
+### Commit
+
+A saved snapshot of staged changes.
+
+### Branch
+
+A movable pointer representing a line of development.
+
+### HEAD
+
+A pointer that tells Git where I am currently working, normally pointing to the current branch.
+
+Example:
+
+```text
+HEAD → main → latest commit
+```
+
+---
+
+## 13. Main Workflow Learned
+
+The most important Git workflow from today's practice:
+
+```text
+Create / Modify File
+        ↓
+   git status
+        ↓
+     git add
+        ↓
+   Staging Area
+        ↓
+   git commit
+        ↓
+ Local Repository
+        ↓
+     git push
+        ↓
+      GitHub
+```
+
+If GitHub has newer changes:
+
+```text
+git pull --rebase origin main
+        ↓
+     git push
+```
+
+---
+
+## 14. Key Lessons From Today's Mistakes
+
+* I learned that I don't need to clone the repository every day.
+* I only need to clone a repository when creating a local copy for the first time.
+* After that, I can continue working inside the existing local repository.
+* `git add` is used before `git commit`.
+* `git commit` saves staged changes locally.
+* `git push` uploads local commits to GitHub.
+* `git pull` gets changes from GitHub.
+* I learned how to unstage a file using `git restore --staged`.
+* I learned why filenames containing spaces or special characters should be placed inside quotes.
+* I learned how to check the repository state using `git status`.
+* I learned how to view commit history using `git log` and `git log --oneline`.
+* I practiced moving a branch back to an earlier commit using `git reset`.
+* I learned that a rejected push can happen when the remote repository contains commits that my local repository does not have.
+* I learned to synchronize with the remote repository before pushing when this happens.
+
+---
+
+## 15. Commands I Should Remember
+
+```bash
+git status
+git add <file>
+git add .
+git commit -m "message"
+git log
+git log --oneline
+git remote -v
+git push
+git pull
+git pull --rebase origin main
+git restore --staged <file>
+git reset <commit-hash>
+git clone <repository-url>
+git init
+```
+
+### One-Line Memory Trick
+
+```text
+status  = What's happening?
+add     = Select changes
+commit  = Save snapshot
+log     = See history
+reset   = Move branch back
+pull    = Get from GitHub
+push    = Send to GitHub
+clone   = Get repository for the first time
+```
